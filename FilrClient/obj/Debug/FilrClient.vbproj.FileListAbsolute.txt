@@ -1,0 +1,14 @@
+H:\programmieren\Hausaufgabenserver - Kopie\FilrClient\bin\Debug\FilrClient.exe.config
+H:\programmieren\Hausaufgabenserver - Kopie\FilrClient\bin\Debug\FilrClient.exe
+H:\programmieren\Hausaufgabenserver - Kopie\FilrClient\bin\Debug\FilrClient.pdb
+H:\programmieren\Hausaufgabenserver - Kopie\FilrClient\bin\Debug\FilrClient.xml
+H:\programmieren\Hausaufgabenserver - Kopie\FilrClient\obj\Debug\FilrClient.vbprojResolveAssemblyReference.cache
+H:\programmieren\Hausaufgabenserver - Kopie\FilrClient\obj\Debug\FilrClient.Explorer.resources
+H:\programmieren\Hausaufgabenserver - Kopie\FilrClient\obj\Debug\FilrClient.Login.resources
+H:\programmieren\Hausaufgabenserver - Kopie\FilrClient\obj\Debug\FilrClient.Resources.resources
+H:\programmieren\Hausaufgabenserver - Kopie\FilrClient\obj\Debug\FilrClient.vbproj.GenerateResource.Cache
+H:\programmieren\Hausaufgabenserver - Kopie\FilrClient\obj\Debug\FilrClient.exe
+H:\programmieren\Hausaufgabenserver - Kopie\FilrClient\obj\Debug\FilrClient.xml
+H:\programmieren\Hausaufgabenserver - Kopie\FilrClient\obj\Debug\FilrClient.pdb
+H:\programmieren\Hausaufgabenserver - Kopie\FilrClient\bin\Debug\Newtonsoft.Json.dll
+H:\programmieren\Hausaufgabenserver - Kopie\FilrClient\bin\Debug\Newtonsoft.Json.xml
