@@ -1,4 +1,5 @@
 ﻿Imports System.Xml.Serialization
+Imports Newtonsoft.Json
 
 Namespace FilrXMLTypes
     <XmlRoot("results")>
@@ -25,7 +26,11 @@ Namespace FilrXMLTypes
         <XmlElement("icon_href")>
         Public icon_href As String
         Public links As List(Of additionalLinks)
-        <XmlIgnore>
+        Public length As Integer
+        Public shares As List(Of shares)
+        Public modification As modification
+        Public creation As modification
+        <JsonIgnore>
         ReadOnly Property IsFile As Boolean
             Get
                 If doc_type = "file" Then
@@ -34,7 +39,7 @@ Namespace FilrXMLTypes
                 Return False
             End Get
         End Property
-        <XmlIgnore>
+        <JsonIgnore>
         ReadOnly Property IsFolder As Boolean
             Get
                 If entity_type = "folder" Then

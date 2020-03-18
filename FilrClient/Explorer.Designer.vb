@@ -46,6 +46,8 @@ Partial Class Explorer
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.DirectoryEmptyLabel = New System.Windows.Forms.Label()
+        Me.LoadingLabel = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -171,6 +173,8 @@ Partial Class Explorer
         'Panel4
         '
         Me.Panel4.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(15, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.Panel4.Controls.Add(Me.LoadingLabel)
+        Me.Panel4.Controls.Add(Me.DirectoryEmptyLabel)
         Me.Panel4.Controls.Add(Me.ListView1)
         Me.Panel4.Controls.Add(Me.Panel7)
         Me.Panel4.Controls.Add(Me.Panel6)
@@ -276,6 +280,27 @@ Partial Class Explorer
         Me.Panel6.Size = New System.Drawing.Size(732, 12)
         Me.Panel6.TabIndex = 1
         '
+        'DirectoryEmptyLabel
+        '
+        Me.DirectoryEmptyLabel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.DirectoryEmptyLabel.Location = New System.Drawing.Point(0, 0)
+        Me.DirectoryEmptyLabel.Name = "DirectoryEmptyLabel"
+        Me.DirectoryEmptyLabel.Size = New System.Drawing.Size(732, 325)
+        Me.DirectoryEmptyLabel.TabIndex = 3
+        Me.DirectoryEmptyLabel.Text = "Dieser Ordner ist leer"
+        Me.DirectoryEmptyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.DirectoryEmptyLabel.Visible = False
+        '
+        'LoadingLabel
+        '
+        Me.LoadingLabel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LoadingLabel.Location = New System.Drawing.Point(0, 0)
+        Me.LoadingLabel.Name = "LoadingLabel"
+        Me.LoadingLabel.Size = New System.Drawing.Size(732, 325)
+        Me.LoadingLabel.TabIndex = 4
+        Me.LoadingLabel.Text = "Laden ..."
+        Me.LoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'Explorer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -323,4 +348,6 @@ Partial Class Explorer
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents ProgressBar1 As ProgressBar
+    Friend WithEvents DirectoryEmptyLabel As Label
+    Friend WithEvents LoadingLabel As Label
 End Class

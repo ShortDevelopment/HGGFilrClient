@@ -22,5 +22,8 @@ FilrClient
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="M:FilrClient.Shell32.SHGetFileInfo(System.String,System.Int32,FilrClient.Shell32.SHFILEINFO@,System.Int32,System.Int32)">
+https://tabbles.net/how-to-have-large-file-icons-with-shgetfileinfo-in-c/
+</member>
 </members>
 </doc>

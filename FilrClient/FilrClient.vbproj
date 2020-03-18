@@ -94,7 +94,9 @@
     <Compile Include="FilrJsonSerializer.vb" />
     <Compile Include="FilrXMLSerializer.vb" />
     <Compile Include="FilrXMLTypes\binder_brief.vb" />
+    <Compile Include="FilrXMLTypes\person.vb" />
     <Compile Include="FilrXMLTypes\results.vb" />
+    <Compile Include="FilrXMLTypes\shares.vb" />
     <Compile Include="Login.Designer.vb">
       <DependentUpon>Login.vb</DependentUpon>
     </Compile>

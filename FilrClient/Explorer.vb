@@ -26,7 +26,7 @@ Public Class Explorer
         Instance = Me
         AddHandler Client.DownloadProgressChanged, Sub(sender As Object, e As DownloadProgressChangedEventArgs)
                                                        Instance.Invoke(Sub()
-                                                                           Instance.ProgressBar1.Value = e.ProgressPercentage
+                                                                           Instance.ProgressBar1.Value = e.BytesReceived
                                                                            Application.DoEvents()
                                                                        End Sub)
                                                    End Sub
@@ -54,7 +54,12 @@ Public Class Explorer
                        End Sub)
     End Sub
     Sub DisplayFolderContent(url As String)
-        Invoke(Sub() Enabled = False)
+        Invoke(Sub()
+                   Panel2.Enabled = False
+                   ListView1.Enabled = False
+                   DirectoryEmptyLabel.Hide()
+                   LoadingLabel.Show()
+               End Sub)
         Dim data = New FilrJsonSerializer(Of results)().Deserialize(Client, $"{BaseURL}{url}")
         Invoke(Sub() ListView1.Items.Clear())
         For Each entry In data.items
@@ -62,34 +67,57 @@ Public Class Explorer
             Dim info As New EntryInfo
             If entry.IsFile Then
                 item.Text = entry.name
-                item.ImageKey = "outline_insert_drive_file_black_18dp.png"
+                Dim ic As Icon = GetFileIcon(Path.GetExtension(entry.name), IconSize.Small, True)
+                Invoke(Sub()
+                           ImageList1.Images.Add(ic)
+                           item.ImageIndex = ImageList1.Images.Count - 1
+                       End Sub)
                 info.IsFile = True
+                info.FileLength = entry.length
                 info.Name = entry.name
+                item.SubItems.Add(entry.modification.date.ToString("dd.MM.yyyy"))
+                If Not entry.shares Is Nothing Then
+                    item.SubItems.Add(entry.shares(0).sharer.name)
+                    item.SubItems.Add(entry.shares(0).role)
+                End If
             ElseIf entry.IsFolder Then
                 item.Text = entry.title
                 item.ImageKey = "outline_folder_black_18dp.png"
                 info.IsFile = False
                 info.Name = entry.title
+                item.SubItems.Add("")
+                If Not entry.shares Is Nothing Then
+                    item.SubItems.Add(entry.shares(0).sharer.name)
+                    item.SubItems.Add(entry.shares(0).role)
+                End If
             End If
             info.Links = entry.links
             item.Tag = info
             Me.Invoke(Sub() ListView1.Items.Add(item))
         Next
-        Invoke(Sub() Enabled = True)
+        Invoke(Sub()
+                   Panel2.Enabled = True
+                   ListView1.Enabled = True
+                   LoadingLabel.Hide()
+                   If ListView1.Items.Count = 0 Then
+                       DirectoryEmptyLabel.Show()
+                   End If
+               End Sub)
         LastFolderURL = CurrentFolderURL
         CurrentFolderURL = url
     End Sub
     Private Sub ListView1_DoubleClick(sender As Object, e As EventArgs) Handles ListView1.DoubleClick
-        If ListView1.SelectedItems.Count = 0 Then Exit Sub
+        If ListView1.SelectedItems.Count = 0 Or Panel7.Visible Then Exit Sub
         Dim info = CType(ListView1.SelectedItems(0).Tag, EntryInfo)
         If info.IsFile Then
-            OpenFile(info.Name, info.Links)
+            OpenFile(info.Name, info.FileLength, info.Links)
         Else
             OpenFolder(info.Links)
         End If
     End Sub
-    Sub OpenFile(name As String, links As List(Of additionalLinks))
+    Sub OpenFile(name As String, length As Integer, links As List(Of additionalLinks))
         Panel7.Show()
+        ProgressBar1.Maximum = length
         ProgressBar1.Value = 0
         RunOnNewThread(Sub()
                            Dim url = links.Where(Function(x) x.rel = "content")(0).href
@@ -123,6 +151,7 @@ Public Class Explorer
         Property IsFile As Boolean
         Property Links As List(Of additionalLinks)
         Property Name As String
+        Property FileLength As Integer
     End Class
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         DisplayFolderContent(CurrentFolderURL)
@@ -140,7 +169,10 @@ Public Class Explorer
             'End If
         Catch : End Try
     End Sub
-    Private Sub Panel7_Resize(sender As Object, e As EventArgs) Handles Panel7.Resize
+    Private Sub Panel7_Resize() Handles Panel7.Resize
         ProgressBar1.Size = New Size(ProgressBar1.Parent.Width - ProgressBar1.Location.X * 2, ProgressBar1.Height)
+    End Sub
+    Private Sub Panel7_VisibleChanged(sender As Object, e As EventArgs) Handles Panel7.VisibleChanged
+        Panel7_Resize()
     End Sub
 End Class
